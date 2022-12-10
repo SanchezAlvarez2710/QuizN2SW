@@ -35,7 +35,7 @@ driver.find_element(By.XPATH, '/html/body/form/div[4]/article[1]/div/div[1]/div/
 time.sleep(1)
 #CLICK EN EL BOTON BUSCAR
 driver.find_element(By.XPATH, '/html/body/form/div[4]/article[1]/div/div[1]/div/div[1]/div/div/div[2]/div[2]/div[3]/div[2]/div[1]/div[2]/div/div[4]/a').click()
-time.sleep(10)
+time.sleep(15)
 #OBTENER NOMBRES DE LAS AEROLINEAS
 arrAerolineas = []
 time.sleep(3)
@@ -44,18 +44,26 @@ for i in range(1,6):
     print("----------------------- ARREGLO -------------------",arrAerolineas)
 time.sleep(5)
 #OBTENER TODOS LOS ELEMENTOS DE LA BUSQUEDA
+txtBandera = driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]').text
 print(" ----------------------------------- RESULTADOS PARA LA BUSQUEDA -----------------------------------")
 for i in range(2,5):
     print(str(i-1)+") TIPO DE VUELO: ", driver.find_element(By.XPATH, "/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[1]/div["+str(i)+"]/a").text)
-    for j in range(2,7):
-        if(driver.find_element(By.XPATH, "/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div["+str(j)+"]").text != 
-        " &nbsp; "):
-            print("   PRECIO ["+ str(arrAerolineas[j-2]) +"] ", driver.find_element(By.XPATH, "/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[1]/div["+str(j)+"]/a/div/div[2]/span[2]").text) 
-                                                                                            # /html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[1]/div[3]/a/div/div[2]/span[2]           
-#CLICK EN OPCIONES AVANZADAS                                                                                                    
-driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[6]/a').click()
-time.sleep(3)
-#BUSCAR EN AERLINEA "AVIANCA"
-driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input').send_keys("Avianca")
-time.sleep(10)
+    for j in range(1,6):
+        if(driver.find_element(By.XPATH, "/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div["+str(j)+"]/div["+str(i)+"]").text != txtBandera):
+            print("   PRECIO ["+ str(arrAerolineas[j-1]) +"] ", driver.find_element(By.XPATH, "/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div["+str(j)+"]/div["+str(i)+"]/a/div/div[2]/span[2]").text)                                                                                              
+                                                                                            #1ra fila         
+                                                                                            #   /html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[1]/div[2]/a/div/div[2]/span[2]
+                                                                                            #   /html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[2]/div[2]
+                                                                                            #   /html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[3]/div[2]
+                                                                                            # 2da fila
+                                                                                            # /html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[1]/div[3]/a/div/div[2]/span[2]
+                                                                                            # /html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[2]/div[7]/div/div[1]/div[2]/div/div/div[2]/div/div/div/div[2]/div[3]/a/div/div[2]/span[2]                                                                                      
+# # #CLICK EN OPCIONES AVANZADAS                                                                                                    
+# driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[6]/a').click()
+# time.sleep(3)
+# #BUSCAR EN AERLINEA "AVIANCA"
+driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[7]/div[2]/input').send_keys("Avianca (AV)")
+time.sleep(1)
+driver.find_element(By.XPATH, '/html/body/div[3]/div[1]/div[2]/div[4]/div/div/div/div[1]/div[1]/div/div[8]/input').click()
+time.sleep(15)
 driver.quit()
